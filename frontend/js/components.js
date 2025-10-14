@@ -45,8 +45,8 @@
      }
  }
 
- // Cargar componentes automáticamente
  document.addEventListener('DOMContentLoaded', () => {
-     loadComponent('header', 'components/header.html');
-     loadComponent('footer', 'components/footer.html');
+     loadComponent('header', '../components/header.html');
+     loadComponent('footer', '../components/footer.html');
  });
+

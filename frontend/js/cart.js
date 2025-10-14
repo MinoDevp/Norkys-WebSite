@@ -1,5 +1,5 @@
 // =====================
-// 🛒 NORKY'S - CART.JS (versión completa y robusta)
+// 🛒 NORKY'S - CART.JS COMPLETO
 // =====================
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -16,12 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
-            // Normalizar los items
             return parsed.map(item => ({
                 id: String(item.id),
                 name: item.name || item.nombre || `Producto ${item.id}`,
                 price: Number(item.price ?? item.precio ?? 0),
-                image: item.image || item.imagen || 'images/default.png',
+                image: item.image || item.imagen || '/images/default.png',
                 quantity: parseInt(item.quantity ?? item.cantidad ?? 1, 10)
             }));
         } catch (e) {
@@ -57,12 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsList.style.display = 'block';
 
         cartData.forEach(item => {
+            const imgSrc = item.image && item.image !== '' ? item.image : '/images/default.png';
+
             const div = document.createElement('div');
             div.classList.add('cart-item');
             div.setAttribute('data-id', item.id);
             div.innerHTML = `
                 <div class="cart-item-image">
-                    <img src="${item.image}" alt="${item.name}" onerror="this.src='images/default.png'">
+                    <img src="${imgSrc}" alt="${item.name}">
                 </div>
                 <div class="cart-item-info">
                     <h4>${escapeHtml(item.name)}</h4>
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Actualizar totales ---
     function updateSummary() {
         const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const delivery = 5; // fijo por ahora
+        const delivery = 5; // costo fijo
         const total = subtotal + delivery;
 
         subtotalElement.textContent = `S/ ${subtotal.toFixed(2)}`;
@@ -155,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const API_BASE = window.location.hostname.includes('localhost')
               ? 'http://localhost:3000'
-              : 'https://tuapp.onrender.com'; // <-- CAMBIA esto por tu URL real de Render
+              : 'https://tuapp.onrender.com'; // tu URL de producción
 
             const response = await fetch(`${API_BASE}/api/pedidos`, {
               method: 'POST',
@@ -200,4 +201,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Inicializar UI ---
     updateCartUI();
     console.log('[cart.js] Carrito cargado y listo', cartData);
+
 });
