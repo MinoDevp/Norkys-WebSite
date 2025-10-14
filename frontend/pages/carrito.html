@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norky's - Carrito</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<!-- Header dinámico -->
+<header id="header"></header>
+
+<!-- Sección Carrito -->
+<section class="cart-page">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tu Carrito de Compras</h2>
+        </div>
+
+        <div class="cart-content">
+            <!-- Productos -->
+            <div class="cart-items">
+                <h3>Productos seleccionados</h3>
+                <div class="cart-empty" id="cart-empty">
+                    <p>Tu carrito está vacío</p>
+                    <a href="menu.html" class="btn">Ir al Menú</a>
+                </div>
+
+                <div class="cart-items-list" id="cart-items-list">
+                    <!-- Aquí se insertarán los productos con JS -->
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="cart-summary">
+                <h3>Resumen de Pedido</h3>
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">S/ 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery:</span>
+                        <span id="delivery-cost">S/ 5.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">S/ 0.00</span>
+                    </div>
+                </div>
+
+                <!-- Entrega -->
+                <div class="delivery-options">
+                    <h4>Método de entrega</h4>
+                    <div class="option-group">
+                        <input type="radio" id="delivery" name="delivery-method" value="delivery" checked>
+                        <label for="delivery">Delivery a domicilio</label>
+                    </div>
+                    <div class="option-group">
+                        <input type="radio" id="pickup" name="delivery-method" value="pickup">
+                        <label for="pickup">Recojo en tienda</label>
+                    </div>
+                </div>
+
+                <!-- Dirección -->
+                <div class="delivery-address" id="delivery-address">
+                    <h4>Dirección de entrega</h4>
+                    <div class="form-group">
+                        <label for="address">Dirección:</label>
+                        <input type="text" id="address" placeholder="Ej. Av. Los Olivos 123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reference">Referencia:</label>
+                        <input type="text" id="reference" placeholder="Cerca al parque...">
+                    </div>
+                </div>
+
+                <!-- Locales -->
+                <div class="pickup-location" id="pickup-location" style="display: none;">
+                    <h4>Selecciona una sucursal</h4>
+                    <div class="form-group">
+                        <select id="location">
+                            <option value="">Selecciona una sucursal</option>
+                            <option value="central">Sucursal Central - Av. Principal 123</option>
+                            <option value="norte">Sucursal Norte - Av. Norte 456</option>
+                            <option value="sur">Sucursal Sur - Av. Sur 789</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Datos del cliente -->
+                <div class="customer-info">
+                    <h4>Información de contacto</h4>
+                    <div class="form-group">
+                        <label for="name">Nombre completo:</label>
+                        <input type="text" id="name" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono:</label>
+                        <input type="tel" id="phone" placeholder="987654321" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notas adicionales:</label>
+                        <textarea id="notes" placeholder="Instrucciones especiales..."></textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn-large" id="checkout-btn">Confirmar Pedido</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer dinámico -->
+<footer id="footer"></footer>
+
+<script src="../js/components.js"></script>
+<script src="../js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../js/cart.js"></script>
+<script src="https://kit.fontawesome.com/b8ec8c67c3.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

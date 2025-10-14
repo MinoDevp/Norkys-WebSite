@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norky's - Menú</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<!-- Header dinámico -->
+<header id="header"></header>
+
+<!-- Sección Menú -->
+<section class="menu-page">
+    <div class="container">
+        <div class="section-title">
+            <h2>Nuestro Menú</h2>
+            <p>Descubre nuestras deliciosas especialidades</p>
+        </div>
+
+        <div class="menu-categories">
+            <button class="category-btn active" data-category="pollo">Pollo</button>
+            <button class="category-btn" data-category="entradas">Entradas</button>
+            <button class="category-btn" data-category="ensaladas">Ensaladas</button>
+            <button class="category-btn" data-category="bebidas">Bebidas</button>
+            <button class="category-btn" data-category="postres">Postres</button>
+        </div>
+
+        <div class="menu-items">
+            <!-- Pollo -->
+            <div class="menu-category active" id="pollo">
+                <h3>Pollo a la Brasa</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/menu_1.png" alt="Pollo Familiar">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Pollo Familiar</h4>
+                            <p>1 pollo entero + papas fritas familiares + ensalada fresca + 4 gaseosas</p>
+                            <span class="price">S/ 35.00</span>
+                            <button class="btn add-to-cart" data-id="2001" data-name="Pollo Familiar" data-price="35.00" data-image="images/menu_1.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/menu_2.png" alt="1/2 Pollo">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Pollo 1/2</h4>
+                            <p>1/2 pollo + papas fritas + ensalada + 2 gaseosas</p>
+                            <span class="price">S/ 20.00</span>
+                            <button class="btn add-to-cart" data-id="2002" data-name="1/2 Pollo" data-price="20.00" data-image="images/menu_2.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/menu_3.png" alt="1/4 Pollo">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Pollo 1/4</h4>
+                            <p>1/4 de pollo + papas fritas + ensalada + 1 gaseosa</p>
+                            <span class="price">S/ 12.00</span>
+                            <button class="btn add-to-cart" data-id="2003" data-name="1/4 Pollo" data-price="12.00" data-image="images/menu_3.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entradas -->
+            <div class="menu-category" id="entradas">
+                <h3>Entradas</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/menu_4.png" alt="Salchipapas">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Salchipapas</h4>
+                            <p>Papas fritas con salchicha huachana, salsa especial y cremas</p>
+                            <span class="price">S/ 18.00</span>
+                            <button class="btn add-to-cart" data-id="3001" data-name="Salchipapas" data-price="18.00" data-image="/images/menu_4.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/menu_5.png" alt="Tequeños">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Tequeños</h4>
+                            <p>12 unidades de tequeños con salsa guacamole</p>
+                            <span class="price">S/ 15.00</span>
+                            <button class="btn add-to-cart" data-id="3002" data-name="Tequeños" data-price="15.00" data-image="/images/menu_5.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ensaladas -->
+            <div class="menu-category" id="ensaladas">
+                <h3>Ensaladas</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/EnsaladaCesar.png" alt="Ensalada César">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Ensalada César</h4>
+                            <p>Lechuga, pollo a la plancha, queso parmesano, crotones y aderezo César</p>
+                            <span class="price">S/ 18.00</span>
+                            <button class="btn add-to-cart" data-id="4001" data-name="Ensalada César" data-price="18.00" data-image="/images/EnsaladaCesar.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/EnsaladaTropical.png" alt="Ensalada Tropical">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Ensalada Tropical</h4>
+                            <p>Lechuga, mango, pollo, nueces y aderezo de miel</p>
+                            <span class="price">S/ 20.00</span>
+                            <button class="btn add-to-cart" data-id="4002" data-name="Ensalada Tropical" data-price="20.00" data-image="/images/EnsaladaTropical.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bebidas -->
+            <div class="menu-category" id="bebidas">
+                <h3>Bebidas</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/gaseosa500ml.png" alt="Gaseosa 500ml">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Gaseosa 500ml</h4>
+                            <p>Refresco de cola, naranja o limón</p>
+                            <span class="price">S/ 5.00</span>
+                            <button class="btn add-to-cart" data-id="5001" data-name="Gaseosa 500ml" data-price="5.00" data-image="/images/gaseosa500ml.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/AguaMineral500ml.png" alt="Agua Mineral 500ml">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Agua Mineral 500ml</h4>
+                            <p>Agua natural embotellada</p>
+                            <span class="price">S/ 4.00</span>
+                            <button class="btn add-to-cart" data-id="5002" data-name="Agua Mineral 500ml" data-price="4.00" data-image="/images/AguaMineral500ml.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Postres -->
+            <div class="menu-category" id="postres">
+                <h3>Postres</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/Helado.png" alt="Helado">
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Helado</h4>
+                            <p>Helado de vainilla o chocolate</p>
+                            <span class="price">S/ 8.00</span>
+                            <button class="btn add-to-cart" data-id="6001" data-name="Helado" data-price="8.00" data-image="/images/Helado.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="../../backend/images/TartadeChocolate.png" alt="Tarta de Chocolate" >
+                        </div>
+                        <div class="menu-item-info">
+                            <h4>Tarta de Chocolate</h4>
+                            <p>Deliciosa tarta con relleno de chocolate y nueces</p>
+                            <span class="price">S/ 12.00</span>
+                            <button class="btn add-to-cart" data-id="6002" data-name="Tarta de Chocolate" data-price="12.00" data-image="/images/TartadeChocolate.png">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer id="footer"></footer>
+
+<!-- Scripts -->
+<script src="../js/components.js"></script>
+<script src="../js/script.js"></script>
+<script src="../js/menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/b8ec8c67c3.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

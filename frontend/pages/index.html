@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norky's - Inicio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<!-- Header dinámico -->
+<header id="header"></header>
+
+<!-- Sección Hero -->
+<section class="hero">
+    <div class="container">
+        <h2>El auténtico sabor del pollo a la brasa</h2>
+        <p>Disfruta de nuestro delicioso pollo con los mejores acompañamientos en un ambiente familiar y acogedor.</p>
+        <a href="menu.html" class="btn">Ver Menú</a>
+    </div>
+</section>
+
+<!-- Sección Promociones -->
+<section class="promotions">
+    <div class="container">
+        <div class="section-title">
+            <h2>Promociones Especiales</h2>
+            <p>Aprovecha nuestras ofertas por tiempo limitado</p>
+        </div>
+
+                <div class="promotions-grid">
+                    <!-- Promoción 1 -->
+                    <div class="promotion-item">
+                        <div class="promotion-image">
+                            <img src="../../backend/images/pollo_promo_2.png" alt="Promoción 1">
+                            <div class="promo-badge">-20%</div>
+                        </div>
+                        <div class="promotion-info">
+                            <h3>Combo Familiar</h3>
+                            <p>1 pollo entero + papas fritas familiares + ensalada fresca + 4 gaseosas</p>
+                            <div class="price-container">
+                                <span class="old-price">S/ 42.00</span>
+                                <span class="price">S/ 35.00</span>
+                            </div>
+                            <button class="btn add-to-cart" data-id="1001" data-name="Combo Familiar" data-price="35.00" data-image="images/promo1.jpg">Agregar al Carrito</button>
+                        </div>
+                    </div>
+
+                    <!-- Promoción 2 -->
+                    <div class="promotion-item">
+                        <div class="promotion-image">
+                            <img src="../../backend/images/pollo_promo_2_1.png" alt="Promoción 2">
+                            <div class="promo-badge">-15%</div>
+                        </div>
+                        <div class="promotion-info">
+                            <h3>Combo Pareja</h3>
+                            <p>1/2 pollo + papas fritas + ensalada + 2 gaseosas</p>
+                            <div class="price-container">
+                                <span class="old-price">S/ 24.00</span>
+                                <span class="price">S/ 20.00</span>
+                            </div>
+                            <button class="btn add-to-cart" data-id="1002" data-name="Combo Pareja" data-price="20.00" data-image="images/promo2.jpg">Agregar al Carrito</button>
+                        </div>
+                    </div>
+
+                    <!-- Promoción 3 -->
+                    <div class="promotion-item">
+                        <div class="promotion-image">
+                            <img src="../../backend/images/pollo_promo_3.png" alt="Promoción 3">
+                            <div class="promo-badge">2x1</div>
+                        </div>
+                        <div class="promotion-info">
+                            <h3>Martes de Postres</h3>
+                            <p>Lleva 2 postres por el precio de 1 todos los martes</p>
+                            <div class="price-container">
+                                <span class="old-price">S/ 16.00</span>
+                                <span class="price">S/ 8.00</span>
+                            </div>
+                            <button class="btn add-to-cart" data-id="1003" data-name="Martes de Postres" data-price="8.00" data-image="images/promo3.jpg">Agregar al Carrito</button>
+                        </div>
+                    </div>
+
+
+
+
+
+        <!-- Repite los demás productos como antes -->
+        </div>
+    </div>
+</section>
+
+<!-- Sección Sobre Nosotros -->
+<section class="about">
+    <div class="container">
+        <div class="section-title">
+            <h2>Sobre Nosotros</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>En Norky's llevamos más de 15 años sirviendo el mejor pollo a la brasa de la ciudad...</p>
+            </div>
+            <div class="about-image">
+                <img src="../../backend/images/local.png" alt="Local Norky's">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer dinámico -->
+<footer id="footer"></footer>
+
+<!-- Scripts -->
+<script src="../js/components.js"></script>
+<script src="../js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/b8ec8c67c3.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

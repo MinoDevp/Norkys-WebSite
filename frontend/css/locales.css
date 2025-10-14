@@ -1,0 +1,208 @@
+/* Estilos específicos para la página de Locales */
+.locations-page {
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+.locations-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.locations-header h1 {
+    color: #4CAF50;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.locations-header p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.location-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.location-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.location-card:hover .location-image img {
+    transform: scale(1.05);
+}
+
+.location-info {
+    padding: 25px;
+}
+
+.location-info h3 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.location-info p {
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: flex-start;
+}
+
+.location-info strong {
+    color: #333;
+    min-width: 90px;
+    display: inline-block;
+}
+
+.location-map {
+    margin-top: 20px;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+}
+
+.location-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-direction {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-direction:hover {
+    background-color: #3d8b40;
+}
+
+.btn-call {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-call:hover {
+    background-color: #e0e0e0;
+}
+
+.locations-cta {
+    text-align: center;
+    padding: 40px 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.locations-cta h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Horario de atención section */
+.hours-section {
+    background: white;
+    padding: 40px 0;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.hours-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hours-container h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 30px;
+}
+
+.hours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.hour-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.hour-item h3 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.hour-item p {
+    color: #666;
+    font-weight: 500;
+}
+
+/* Responsive para locales */
+@media (max-width: 768px) {
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .location-actions {
+        flex-direction: column;
+    }
+    
+    .btn-direction, .btn-call {
+        justify-content: center;
+    }
+    
+    .locations-header h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norky's - Contacto</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/contacto.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<!-- Header dinámico -->
+<header id="header"></header>
+
+    <!-- Sección Contacto -->
+    <section class="contact-page">
+        <div class="container">
+            <div class="contact-header">
+                <h1>Contáctanos</h1>
+                <p>Estamos aquí para ayudarte. Escríbenos o visítanos en cualquiera de nuestros locales.</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Información de Contacto</h2>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Dirección Principal</h3>
+                            <p>Av. Principal 123, Ciudad, Perú</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Teléfonos</h3>
+                            <p>(01) 123-4567</p>
+                            <p>+51 987 654 321</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p><a href="mailto:info@norkys.com">info@norkys.com</a></p>
+                            <p><a href="mailto:reservas@norkys.com">reservas@norkys.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Horario de Atención</h3>
+                            <p>Lunes a Domingo: 11:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="social-section">
+                        <h3>Síguenos en redes sociales</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Envíanos un mensaje</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nombre completo *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Asunto *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Selecciona un asunto</option>
+                                <option value="reserva">Reserva</option>
+                                <option value="queja">Queja o Reclamo</option>
+                                <option value="sugerencia">Sugerencia</option>
+                                <option value="trabajo">Solicitud de Trabajo</option>
+                                <option value="franquicia">Información de Franquicias</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="contact-map">
+                <h2>Encuéntranos fácilmente</h2>
+                <div class="map-container">
+                    <!-- Aquí iría un mapa real con Google Maps o similar -->
+                    <div style="padding: 20px; text-align: center;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 15px; color: #4CAF50;"></i>
+                        <p>Mapa interactivo de nuestras ubicaciones</p>
+                        <p><small>Integración con Google Maps</small></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Preguntas Frecuentes</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Hacen delivery a domicilio?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, realizamos delivery a domicilio en todas nuestras zonas de cobertura. El tiempo de entrega aproximado es de 30-45 minutos dependiendo de la ubicación. El costo de delivery varía según la distancia.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Aceptan tarjetas de crédito y débito?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, aceptamos todas las tarjetas de crédito y débito principales (Visa, MasterCard, American Express). También aceptamos pagos en efectivo y transferencias bancarias.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Necesito reservar para grupos grandes?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Para grupos de 8 o más personas, recomendamos hacer una reserva con al menos 24 horas de anticipación para garantizar la disponibilidad de espacio y agilizar su servicio.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Tienen opciones para vegetarianos?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, contamos con varias opciones vegetarianas en nuestro menú, incluyendo ensaladas frescas, papas fritas, pastas y platos especiales sin carne. Consulte nuestro menú para más detalles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer dinámico -->
+<footer id="footer"></footer>
+
+  <script src="../js/components.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/contacto.js"></script>
+<script src="https://kit.fontawesome.com/b8ec8c67c3.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Node.js
+node_modules/
+
+# Boletas generadas
+backend/boletas/
+
+# IntelliJ
+.idea/
+
+# Logs
+*.log
