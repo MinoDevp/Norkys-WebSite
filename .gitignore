@@ -1,0 +1,23 @@
+# Node.js dependencies
+backend/node_modules/
+
+# IDE / Editor
+.idea/
+.idea/*                # ignora todo dentro de .idea
+!workspace.xml         # excepto workspace.xml si lo quieres trackear
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Workspace / Shelf (IDE-specific)
+.shelf/
+httpRequests/
+
+# Build / Temporary folders
+dist/
+
+
