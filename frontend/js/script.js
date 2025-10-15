@@ -15,25 +15,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// Funcionalidad de búsqueda
-document.addEventListener('DOMContentLoaded', () => {
-    const searchBtn = document.querySelector('#search-btn');
-    const searchInput = document.querySelector('.search-bar input');
-
-    if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') performSearch();
-        });
-    }
-
-    function performSearch() {
-        const query = searchInput.value.trim();
-        if (query) window.location.href = `menu.html?search=${encodeURIComponent(query)}`;
-    }
-});
-
-
 // Opcional: animaciones generales (sin afectar el menú)
 document.addEventListener('DOMContentLoaded', () => {
     const elements = document.querySelectorAll('.specialty-item, .location-card, .promotion-item');

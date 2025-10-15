@@ -16,8 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ====== SERVIR FRONTEND ======
-// CSS, JS, imágenes, components
+// Sirve todos los archivos estáticos del frontend
 app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Sirve específicamente las imágenes del frontend
+app.use('/images', express.static(path.join(__dirname, '../frontend/images')));
 
 // ====== CONFIGURAR CARPETA DE BOLETAS ======
 const boletasDir = path.join(__dirname, 'boletas');
@@ -26,22 +29,20 @@ app.use('/boletas', express.static(boletasDir));
 
 // ====== RUTAS HTML ======
 
-// Servir index.html en la raíz
+// Página principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/pages/index.html'));
 });
 
-// Servir cualquier HTML desde frontend/pages automáticamente
-app.get('/:page', (req, res) => {
+// ✅ Sirve cualquier página de /frontend/pages automáticamente
+app.get('/:page.html', (req, res) => {
   const page = req.params.page;
   const filePath = path.join(__dirname, '../frontend/pages', `${page}.html`);
-  fs.access(filePath, fs.constants.F_OK, (err) => {
-    if (err) {
-      res.status(404).send('<h1>404 - Página no encontrada</h1>');
-    } else {
-      res.sendFile(filePath);
-    }
-  });
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).send('<h1>404 - Página no encontrada</h1>');
+  }
 });
 
 // ====== API ======
@@ -119,10 +120,12 @@ app.post('/api/pedidos', async (req, res) => {
     const secondaryColor = '#fdd835';
     const textColor = '#333';
 
-    // Logo
-    const logoPath = path.join(__dirname, '../frontend/images/pollo_v1.png');
+    // Ruta absoluta al logo
+    const logoPath = path.resolve(__dirname, '../frontend/images/pollo_v1.png');
     if (fs.existsSync(logoPath)) {
       doc.image(logoPath, 50, 40, { width: 80, height: 80 });
+    } else {
+      console.warn('⚠️ Logo no encontrado en:', logoPath);
     }
 
     // Encabezado
@@ -170,7 +173,7 @@ app.post('/api/pedidos', async (req, res) => {
     doc.rect(400, startY, 150, 25).fill(primaryColor);
     doc.fillColor('#fff').fontSize(14).text(`Total: S/ ${total.toFixed(2)}`, 410, startY + 5);
 
-    // Pie de página
+    // Pie
     doc.fontSize(10).fillColor('gray').text(
       "Gracias por su compra. ¡Lo esperamos pronto en Norky's!",
       50, 750, { align: 'center', width: 500 }

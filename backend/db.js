@@ -1,4 +1,6 @@
 // db.js
+require('dotenv').config(); // 👈 Carga las variables desde .env
+
 const { Pool } = require('pg');
 
 // Configuración de la base de datos usando variables de entorno

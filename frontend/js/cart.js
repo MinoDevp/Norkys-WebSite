@@ -1,6 +1,3 @@
-// =====================
-// 🛒 NORKY'S - CART.JS COMPLETO
-// =====================
 document.addEventListener('DOMContentLoaded', () => {
 
     const cartItemsList = document.getElementById('cart-items-list');
@@ -10,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalElement = document.getElementById('total');
     const checkoutBtn = document.getElementById('checkout-btn');
 
-    // --- Leer carrito desde localStorage ---
     function readCartFromStorage() {
         const raw = localStorage.getItem('norkys_cart');
         if (!raw) return [];
@@ -20,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: String(item.id),
                 name: item.name || item.nombre || `Producto ${item.id}`,
                 price: Number(item.price ?? item.precio ?? 0),
-                image: item.image || item.imagen || '/images/default.png',
+                // ⚡ RUTA UNIFICADA RELATIVA
+                image: item.image || item.imagen || 'images/default.png',
                 quantity: parseInt(item.quantity ?? item.cantidad ?? 1, 10)
             }));
         } catch (e) {
@@ -29,10 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Inicializar carrito
     let cartData = readCartFromStorage();
 
-    // --- Actualizar contador del header ---
     function updateHeaderCartCount() {
         const cartCount = document.querySelector(".cart-count");
         if (!cartCount) return;
@@ -40,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCount.textContent = totalItems;
     }
 
-    // --- Mostrar carrito en DOM ---
     function updateCartUI() {
         cartItemsList.innerHTML = '';
 
@@ -56,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsList.style.display = 'block';
 
         cartData.forEach(item => {
-            const imgSrc = item.image && item.image !== '' ? item.image : '/images/default.png';
+            const imgSrc = item.image && item.image !== '' ? item.image : 'images/default.png';
 
             const div = document.createElement('div');
             div.classList.add('cart-item');
@@ -83,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHeaderCartCount();
     }
 
-    // --- Escapar texto para seguridad ---
     function escapeHtml(str) {
         return String(str)
             .replace(/&/g, '&amp;')
@@ -91,10 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/>/g, '&gt;');
     }
 
-    // --- Actualizar totales ---
     function updateSummary() {
         const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const delivery = 5; // costo fijo
+        const delivery = 5;
         const total = subtotal + delivery;
 
         subtotalElement.textContent = `S/ ${subtotal.toFixed(2)}`;
@@ -104,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('norkys_cart', JSON.stringify(cartData));
     }
 
-    // --- Manejo de botones cantidad y eliminar ---
     cartItemsList.addEventListener('click', (e) => {
         const id = e.target?.getAttribute('data-id');
         if (!id) return;
@@ -126,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     });
 
-    // --- Confirmar pedido ---
     checkoutBtn.addEventListener('click', async () => {
         if (!cartData || cartData.length === 0) {
             Swal.fire({ icon: 'warning', title: 'Tu carrito está vacío' });
@@ -156,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const API_BASE = window.location.hostname.includes('localhost')
               ? 'http://localhost:3000'
-              : 'https://tuapp.onrender.com'; // tu URL de producción
+              : 'https://tuapp.onrender.com';
 
             const response = await fetch(`${API_BASE}/api/pedidos`, {
               method: 'POST',
@@ -184,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Vaciar carrito
                 localStorage.removeItem('norkys_cart');
                 cartData = [];
                 updateCartUI();
@@ -198,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Inicializar UI ---
     updateCartUI();
     console.log('[cart.js] Carrito cargado y listo', cartData);
 

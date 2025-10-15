@@ -1,23 +1,33 @@
-# Node.js dependencies
+# ===== Node.js dependencies =====
 backend/node_modules/
 
-# IDE / Editor
+# ===== Logs =====
+*.log
+
+# ===== IDE / Editor =====
 .idea/
 .idea/*                # ignora todo dentro de .idea
 !workspace.xml         # excepto workspace.xml si lo quieres trackear
+.vscode/
 
-# Logs
-*.log
-
-# OS files
+# ===== OS files =====
 .DS_Store
 Thumbs.db
 
-# Workspace / Shelf (IDE-specific)
+# ===== Workspace / Shelf (IDE-specific) =====
 .shelf/
 httpRequests/
 
-# Build / Temporary folders
+# ===== Build / Temporary folders =====
 dist/
+build/
+
+# ===== Archivos sensibles =====
+backend/.env
+.env
+.env.*
+
+# ===== PDFs generados dinámicamente =====
+backend/boletas/
 
 
