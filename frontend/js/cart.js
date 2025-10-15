@@ -144,9 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const API_BASE = window.location.hostname.includes('localhost')
-              ? 'http://localhost:3000'
-              : 'https://tuapp.onrender.com';
+           const API_BASE = window.location.hostname.includes('localhost')
+             ? 'http://localhost:3000'       // sigue siendo tu local
+             : 'https://norkys-website.onrender.com';  // tu Render URL
+
 
             const response = await fetch(`${API_BASE}/api/pedidos`, {
               method: 'POST',
