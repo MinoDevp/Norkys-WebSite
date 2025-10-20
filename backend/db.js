@@ -10,7 +10,7 @@ const pool = new Pool({
   host: process.env.DB_HOST || 'again-prefer-vocational-shareware.trycloudflare.com',
   database: process.env.DB_NAME || 'norkysdb',
   password: process.env.DB_PASS || 'MiPass123',
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 443,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false
 });
 
