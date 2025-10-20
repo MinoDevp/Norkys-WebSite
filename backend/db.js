@@ -11,7 +11,7 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'norkysdb',       // nombre de la base de datos
   password: process.env.DB_PASS || 'MiPass123',      // contraseña
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 443,  // puerto
-  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false
+  ssl: process.env.DB_SSL === 'false' ? { rejectUnauthorized: false } : false
 });
 
 // Probar la conexión (opcional)
