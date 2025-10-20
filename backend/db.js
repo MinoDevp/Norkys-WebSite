@@ -6,13 +6,14 @@ const { Pool } = require('pg');
 // Configuración de la base de datos usando variables de entorno
 // Esto permite cambiar la configuración sin modificar el código
 const pool = new Pool({
-  user: process.env.DB_USER || 'estudiante',         // usuario PostgreSQL
-  host: process.env.DB_HOST || 'again-prefer-vocational-shareware.trycloudflare.com',          // host de la base de datos
-  database: process.env.DB_NAME || 'norkysdb',       // nombre de la base de datos
-  password: process.env.DB_PASS || 'MiPass123',      // contraseña
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 443,  // puerto
-  ssl: process.env.DB_SSL === 'false' ? { rejectUnauthorized: false } : false
+  user: process.env.DB_USER || 'estudiante',
+  host: process.env.DB_HOST || 'again-prefer-vocational-shareware.trycloudflare.com',
+  database: process.env.DB_NAME || 'norkysdb',
+  password: process.env.DB_PASS || 'MiPass123',
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 443,
+  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false
 });
+
 
 // Probar la conexión (opcional)
 pool.connect()
