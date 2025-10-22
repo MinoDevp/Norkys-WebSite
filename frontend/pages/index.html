@@ -5,21 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Norky's - Inicio</title>
 
-    <!-- CSS absolutas -->
+    <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Favicon (opcional) -->
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
+
+
 </head>
 <body>
 
 <!-- Header dinámico -->
 <header id="header"></header>
 
-<!-- Sección Hero -->
+<!-- Sección Hero con 3D -->
 <section class="hero">
-    <div class="container">
-        <h2>El auténtico sabor del pollo a la brasa</h2>
-        <p>Disfruta de nuestro delicioso pollo con los mejores acompañamientos en un ambiente familiar y acogedor.</p>
-        <a href="/pages/menu.html" class="btn">Ver Menú</a>
+    <div class="container hero-flex">
+        <!-- Texto -->
+        <div class="hero-text">
+            <h2>El auténtico sabor del pollo a la brasa</h2>
+            <p>Disfruta de nuestro delicioso pollo con los mejores acompañamientos en un ambiente familiar y acogedor.</p>
+            <a href="/pages/menu.html" class="btn">Ver Menú</a>
+        </div>
+
+        <!-- Contenedor 3D -->
+        <div id="pollobrasa" class="hero-3d"></div>
     </div>
 </section>
 

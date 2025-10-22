@@ -15,7 +15,7 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// Opcional: animaciones generales (sin afectar el menú)
+// Animaciones generales (fade y slide)
 document.addEventListener('DOMContentLoaded', () => {
     const elements = document.querySelectorAll('.specialty-item, .location-card, .promotion-item');
     elements.forEach(el => {
@@ -39,4 +39,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
+});
+
+// -------------------------------
+// Modelo 3D del pollo (Three.js global)
+// -------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('pollobrasa');
+    if (!container) return console.error('Contenedor 3D no encontrado');
+
+    container.style.height = container.style.height || '400px';
+
+    // Escena y cámara
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        1000
+    );
+    camera.position.set(0, 0, 5.5);
+
+    // Renderizador
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Iluminación
+    const light = new THREE.DirectionalLight(0xffffff, 1.2);
+    light.position.set(5, 10, 7.5);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7
+    ));
+
+    // Cargar modelo GLB
+    const loader = new THREE.GLTFLoader();
+    loader.load('/models/pollobrasa.glb', (gltf) => {
+        const model = gltf.scene;
+        model.scale.set(2, 2, 2);
+
+        scene.add(model);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            model.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+    }, undefined, (error) => console.error('Error cargando GLB:', error));
+
+    // Ajuste en resize
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
 });

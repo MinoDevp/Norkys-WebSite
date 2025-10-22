@@ -7,7 +7,7 @@ const { Pool } = require('pg');
 // Esto permite cambiar la configuración sin modificar el código
 const pool = new Pool({
   user: process.env.DB_USER || 'estudiante',
-  host: process.env.DB_HOST || 'again-prefer-vocational-shareware.trycloudflare.com',
+  host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'norkysdb',
   password: process.env.DB_PASS || 'MiPass123',
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,

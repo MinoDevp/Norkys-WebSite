@@ -597,6 +597,36 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+/* Hero con 3D al costado */
+.hero-flex {
+    display: flex;
+    align-items: center;   /* centra verticalmente el texto y el modelo */
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.hero-text {
+    flex: 0 0 60%;         /* texto ocupa el 60% del ancho */
+    min-width: 300px;
+    text-align: left;
+}
+
+.hero-3d {
+    flex: 0 0 40%;         /* el 3D ocupa el 40% del ancho */
+    height: 400px;
+    background: transparent;
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
