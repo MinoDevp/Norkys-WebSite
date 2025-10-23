@@ -1,0 +1,107 @@
+/* === REGISTER PAGE === */
+.register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background: #101820;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+/* Header */
+.register-page header {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #2e7d32;
+}
+
+/* Contenedor del formulario */
+.register-container {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+
+    /* centrado horizontal y altura ajustada */
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}
+
+/* Inputs */
+.register-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff; /* letras blancas */
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.register-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* placeholders visibles */
+}
+
+.register-container input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px #fdd835;
+}
+
+/* Botón principal */
+.register-container .btn-register {
+    background-color: #2e7d32;
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-container .btn-register:hover {
+    background-color: #388e3c;
+}
+
+/* Botón volver */
+.register-container .back-btn {
+    margin-bottom: 10px;
+}
+
+.register-container .back-btn a {
+    color: #fdd835;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-container .back-btn a:hover {
+    text-decoration: underline;
+}
+
+/* Link inferior */
+.register-container .login-link {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #fff; /* letras blancas para mejor contraste */
+}
+
+.register-container .login-link a {
+    color: #fdd835;
+    text-decoration: none;
+}
+
+.register-container .login-link a:hover {
+    color: #fff;
+}

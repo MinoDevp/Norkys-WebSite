@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Pollería Norkys</title>
+    <link rel="stylesheet" href="../css/auth3d.css" />
+</head>
+<body>
+<div class="login-container">
+    <!-- LADO IZQUIERDO: 3D -->
+    <div class="login-3d" id="login3d"></div>
+
+
+
+    <!-- LADO DERECHO: FORMULARIO -->
+    <div class="login-form">
+        <!-- BOTÓN VOLVER -->
+        <div class="back-btn">
+            <a href="/pages/index.html">&#8592; Volver</a>
+        </div>
+
+
+        <h2>Bienvenido 🍗</h2>
+        <p>Accede para disfrutar del sabor del futuro</p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Correo electrónico" required />
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Contraseña" required />
+            </div>
+            <button type="submit" class="btn">Iniciar Sesión</button>
+            <p class="register-link">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts necesarios -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>

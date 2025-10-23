@@ -615,8 +615,24 @@ footer {
     flex: 0 0 40%;         /* el 3D ocupa el 40% del ancho */
     height: 400px;
     background: transparent;
+}
+/* === Botón de login en el header === */
+.login-link {
+    background: #ffcc00; /* amarillo estilo Norky's */
+    color: #222;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-
+.login-link:hover {
+    background: #ffb300;
+    color: #111;
+    transform: scale(1.05);
 }
 
 

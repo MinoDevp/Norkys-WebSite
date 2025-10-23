@@ -1,0 +1,159 @@
+/* === LOGIN 3D FUTURISTA NORKY'S STYLE === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background: linear-gradient(135deg, #101820, #1b2735);
+  color: #fff;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* LADO IZQUIERDO: 3D CON FONDO ANIMADO NORKY'S */
+.login-3d {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #ffeb3b 0%, #fdd835 40%, #ffb300 100%);
+  animation: glowShift 6s ease-in-out infinite alternate;
+}
+
+/* efecto leve de movimiento de luz */
+@keyframes glowShift {
+  0% { background-position: 0% 50%; filter: brightness(1); }
+  50% { background-position: 100% 50%; filter: brightness(1.1); }
+  100% { background-position: 0% 50%; filter: brightness(1); }
+}
+
+/* LADO DERECHO: FORMULARIO */
+.login-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  animation: fadeInRight 1s ease;
+}
+
+.login-form h2 {
+  font-size: 2rem;
+  color: #fdd835;
+  margin-bottom: 10px;
+}
+
+.login-form p {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  width: 100%;
+  max-width: 320px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #fdd835;
+}
+
+/* BOTÓN */
+.btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+}
+
+/* ENLACE DE REGISTRO */
+.register-link {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.register-link a {
+  color: #fdd835;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  color: #fff;
+}
+
+/* Animación suave */
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-3d {
+    height: 40vh;
+  }
+
+  .login-form {
+    height: 60vh;
+  }
+}
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.back-btn a {
+    color: #fdd835;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.back-btn a:hover {
+    color: #fff;
+    transform: translateX(-3px);
+}
