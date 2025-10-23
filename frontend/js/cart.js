@@ -126,33 +126,56 @@ document.addEventListener('DOMContentLoaded', () => {
         const nombre = document.getElementById('name').value.trim();
         const telefono = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
-        const direccion = document.getElementById('address').value.trim();
+        const notas = document.getElementById('notes').value.trim();
 
-        if (!nombre || !telefono || !direccion) {
-            Swal.fire({ icon: 'warning', title: 'Datos incompletos', text: 'Completa los campos obligatorios' });
+        // Detectar método de entrega
+        const metodoEntrega = document.querySelector('input[name="delivery-method"]:checked')?.value;
+
+        // Dirección solo si es delivery
+        const direccion = metodoEntrega === 'delivery'
+            ? document.getElementById('address').value.trim()
+            : null;
+
+        // Sucursal solo si es recojo
+        const sucursal = metodoEntrega === 'recojo'
+            ? document.getElementById('sucursalRecojo').value.trim()
+            : null;
+
+        // Validación según método de entrega
+        if (!nombre || !telefono ||
+            (metodoEntrega === 'delivery' && !direccion) ||
+            (metodoEntrega === 'recojo' && !sucursal)) {
+            Swal.fire({ icon: 'warning', title: 'Datos incompletos', text: 'Completa los campos obligatorios según el método de entrega' });
             return;
         }
 
-        const subtotal = cartData.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        const delivery = 5;
-        const total = subtotal + delivery;
+        const subtotal = cartData.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        const deliveryCost = metodoEntrega === 'delivery' ? 5 : 0;
+        const total = subtotal + deliveryCost;
 
         const pedido = {
-            cliente: { nombre, telefono, email, direccion },
+            cliente: {
+                nombre,
+                telefono,
+                email,
+                direccion,
+                metodoEntrega,
+                sucursal,
+                notas
+            },
             productos: cartData.map(i => ({ id_producto: i.id, cantidad: i.quantity, precio: i.price, name: i.name })),
             total
         };
 
         try {
-           const API_BASE = window.location.hostname.includes('localhost')
-             ? 'http://localhost:3000'       // sigue siendo tu local
-             : 'https://norkys-website.onrender.com';  // tu Render URL
-
+            const API_BASE = window.location.hostname.includes('localhost')
+                ? 'http://localhost:3000'
+                : 'https://norkys-website.onrender.com';
 
             const response = await fetch(`${API_BASE}/api/pedidos`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(pedido)
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pedido)
             });
 
             const result = await response.json();
@@ -188,7 +211,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
     updateCartUI();
     console.log('[cart.js] Carrito cargado y listo', cartData);
+
+    // 🧠 Mostrar/ocultar campos según método de entrega
+    const deliveryRadios = document.querySelectorAll('input[name="delivery-method"]');
+    const deliveryAddress = document.getElementById("delivery-address");
+    const sucursalGroup = document.getElementById("sucursalGroup");
+
+    const actualizarVistaEntrega = () => {
+      const seleccionado = document.querySelector('input[name="delivery-method"]:checked')?.value;
+
+      if (seleccionado === "delivery") {
+        deliveryAddress.style.display = "block";
+        sucursalGroup.style.display = "none";
+      } else if (seleccionado === "recojo") {
+        deliveryAddress.style.display = "none";
+        sucursalGroup.style.display = "block";
+      }
+    };
+
+    // Inicializa el estado al cargar la página
+    actualizarVistaEntrega();
+
+    // Escucha cambios en los radio buttons
+    deliveryRadios.forEach(radio => {
+      radio.addEventListener("change", actualizarVistaEntrega);
+    });
+
+    updateCartUI();
+    console.log('[cart.js] Carrito cargado y listo', cartData);
+
 
 });

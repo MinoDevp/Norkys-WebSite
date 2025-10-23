@@ -1,40 +1,54 @@
 /* === REGISTER PAGE === */
+
+/* Fondo amarillo ancho completo */
 .register-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
-    background: #101820;
+    background-color: #FFEB3B; /* amarillo del botón de inicio */
     font-family: 'Poppins', sans-serif;
-
 }
 
-/* Header */
-.register-page header {
+
+/* Wrapper interno para centrar el formulario */
+.register-wrapper {
+    flex: 1; /* ocupa el espacio entre header y footer */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+}
+
+/* Contenedor interno para limitar ancho del formulario */
+.register-content {
     width: 100%;
-    padding: 10px 20px;
-    background-color: #2e7d32;
+    max-width: 400px; /* ancho máximo del formulario */
 }
 
-/* Contenedor del formulario */
+/* Formulario negro/neón */
 .register-container {
-    margin-top: 50px;
-    width: 100%;
-    max-width: 400px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
+    background-color: #101820; /* negro neon */
     border-radius: 12px;
     padding: 30px 25px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+/* Título y subtítulo del formulario */
+.register-container h2 {
+    color: #FFEB3B; /* amarillo brillante del botón */
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
 
-    /* centrado horizontal y altura ajustada */
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;
+}
+
+.register-container p {
+    color: rgba(255, 255, 255, 0.9); /* casi blanco para buen contraste */
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 /* Inputs */
@@ -44,14 +58,14 @@
     border-radius: 8px;
     border: none;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff; /* letras blancas */
+    color: #fff;
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
 }
 
 .register-container input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* placeholders visibles */
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .register-container input:focus {
@@ -61,8 +75,8 @@
 
 /* Botón principal */
 .register-container .btn-register {
-    background-color: #2e7d32;
-    color: #fff;
+    background-color: #FFEB3B; /* amarillo del botón */
+    color: #222;
     padding: 12px;
     border-radius: 8px;
     border: none;
@@ -72,14 +86,10 @@
 }
 
 .register-container .btn-register:hover {
-    background-color: #388e3c;
+    background-color: #FFD700;
 }
 
 /* Botón volver */
-.register-container .back-btn {
-    margin-bottom: 10px;
-}
-
 .register-container .back-btn a {
     color: #fdd835;
     text-decoration: none;
@@ -94,7 +104,8 @@
 .register-container .login-link {
     margin-top: 10px;
     font-size: 0.9rem;
-    color: #fff; /* letras blancas para mejor contraste */
+    color: #fff;
+    text-align: center;
 }
 
 .register-container .login-link a {
@@ -104,4 +115,15 @@
 
 .register-container .login-link a:hover {
     color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .register-wrapper {
+        padding: 30px 15px;
+    }
+
+    .register-container {
+        padding: 25px 20px;
+    }
 }
