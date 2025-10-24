@@ -635,6 +635,48 @@ footer {
     transform: scale(1.05);
 }
 
+/* Menú desplegable - pegado al botón login */
+.login-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% - 2px); /* 🔥 ajustado: lo sube apenas más */
+    left: 0;
+    background: #fff8e1; /* Amarillo claro */
+    border: 1.5px solid #ffcc00;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 0; /* más fino y compacto */
+    display: none;
+    min-width: 160px;
+    z-index: 200;
+    animation: fadeIn 0.25s ease forwards;
+    margin-top: 0; /* 👈 elimina el hueco vertical extra */
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 9px 14px; /* levemente más compacto */
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #ffecb3; /* Amarillo más suave */
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 
 
 

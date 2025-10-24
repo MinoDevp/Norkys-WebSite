@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    // === 🔹 ELEMENTOS DEL DOM ===
     const cartItemsList = document.getElementById('cart-items-list');
     const cartEmpty = document.getElementById('cart-empty');
     const subtotalElement = document.getElementById('subtotal');
@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalElement = document.getElementById('total');
     const checkoutBtn = document.getElementById('checkout-btn');
 
+    const deliveryAddress = document.getElementById("delivery-address");
+    const referenceGroup = document.querySelector('#delivery-address .form-group:nth-child(2)');
+    const sucursalGroup = document.getElementById("sucursalGroup");
+    const notasGroup = document.getElementById("notesgroup");
+
+    // === 🔹 LECTURA DEL CARRITO LOCAL ===
     function readCartFromStorage() {
         const raw = localStorage.getItem('norkys_cart');
         if (!raw) return [];
@@ -16,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: String(item.id),
                 name: item.name || item.nombre || `Producto ${item.id}`,
                 price: Number(item.price ?? item.precio ?? 0),
-                // ⚡ RUTA UNIFICADA RELATIVA
                 image: item.image || item.imagen || 'images/default.png',
                 quantity: parseInt(item.quantity ?? item.cantidad ?? 1, 10)
             }));
@@ -28,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let cartData = readCartFromStorage();
 
+    // === 🔹 ACTUALIZA CONTADOR DEL HEADER ===
     function updateHeaderCartCount() {
         const cartCount = document.querySelector(".cart-count");
         if (!cartCount) return;
@@ -35,6 +41,28 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCount.textContent = totalItems;
     }
 
+    // === 🔹 ESCAPE DE HTML ===
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
+    // === 🔹 ACTUALIZA LOS TOTALES ===
+    function updateSummary() {
+        const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const delivery = 5;
+        const total = subtotal + delivery;
+
+        subtotalElement.textContent = `S/ ${subtotal.toFixed(2)}`;
+        deliveryElement.textContent = `S/ ${delivery.toFixed(2)}`;
+        totalElement.textContent = `S/ ${total.toFixed(2)}`;
+
+        localStorage.setItem('norkys_cart', JSON.stringify(cartData));
+    }
+
+    // === 🔹 ACTUALIZA EL CARRITO ===
     function updateCartUI() {
         cartItemsList.innerHTML = '';
 
@@ -51,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cartData.forEach(item => {
             const imgSrc = item.image && item.image !== '' ? item.image : 'images/default.png';
-
             const div = document.createElement('div');
             div.classList.add('cart-item');
             div.setAttribute('data-id', item.id);
@@ -75,27 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateSummary();
         updateHeaderCartCount();
+        actualizarVistaEntrega();
     }
 
-    function escapeHtml(str) {
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
-    }
-
-    function updateSummary() {
-        const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const delivery = 5;
-        const total = subtotal + delivery;
-
-        subtotalElement.textContent = `S/ ${subtotal.toFixed(2)}`;
-        deliveryElement.textContent = `S/ ${delivery.toFixed(2)}`;
-        totalElement.textContent = `S/ ${total.toFixed(2)}`;
-
-        localStorage.setItem('norkys_cart', JSON.stringify(cartData));
-    }
-
+    // === 🔹 BOTONES DE CANTIDAD / ELIMINAR ===
     cartItemsList.addEventListener('click', (e) => {
         const id = e.target?.getAttribute('data-id');
         if (!id) return;
@@ -117,35 +127,70 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     });
 
+    // === 🧍 DETECTAR USUARIO LOGUEADO ===
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        const nameField = document.getElementById('name');
+        const phoneField = document.getElementById('phone');
+        const emailField = document.getElementById('email');
+        if (nameField) nameField.parentElement.style.display = 'none';
+        if (phoneField) phoneField.parentElement.style.display = 'none';
+        if (emailField) emailField.parentElement.style.display = 'none';
+    }
+
+    // === 🧠 MOSTRAR / OCULTAR CAMPOS SEGÚN MÉTODO DE ENTREGA ===
+    const deliveryRadios = document.querySelectorAll('input[name="delivery-method"]');
+    const actualizarVistaEntrega = () => {
+        const seleccionado = document.querySelector('input[name="delivery-method"]:checked')?.value;
+        if (seleccionado === "delivery") {
+            deliveryAddress.style.display = "block";
+            sucursalGroup.style.display = "none";
+            referenceGroup.style.display = "block";
+            notasGroup.style.display = "block";
+        } else if (seleccionado === "recojo") {
+            deliveryAddress.style.display = "none";
+            sucursalGroup.style.display = "block";
+            referenceGroup.style.display = "none";
+            notasGroup.style.display = "none";
+        }
+    };
+    actualizarVistaEntrega();
+    deliveryRadios.forEach(radio => radio.addEventListener("change", actualizarVistaEntrega));
+
+    // === 🧾 BOTÓN DE FINALIZAR COMPRA ===
     checkoutBtn.addEventListener('click', async () => {
         if (!cartData || cartData.length === 0) {
             Swal.fire({ icon: 'warning', title: 'Tu carrito está vacío' });
             return;
         }
 
-        const nombre = document.getElementById('name').value.trim();
-        const telefono = document.getElementById('phone').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const notas = document.getElementById('notes').value.trim();
+        const nombre = user?.nombre || document.getElementById('name')?.value.trim();
+        const telefono = user?.telefono || document.getElementById('phone')?.value.trim();
+        const email = user?.email || document.getElementById('email')?.value.trim();
+        const notas = document.getElementById('notes')?.value.trim();
 
-        // Detectar método de entrega
         const metodoEntrega = document.querySelector('input[name="delivery-method"]:checked')?.value;
 
-        // Dirección solo si es delivery
-        const direccion = metodoEntrega === 'delivery'
-            ? document.getElementById('address').value.trim()
-            : null;
+        let direccion = '';
+        let sucursal = '';
 
-        // Sucursal solo si es recojo
-        const sucursal = metodoEntrega === 'recojo'
-            ? document.getElementById('sucursalRecojo').value.trim()
-            : null;
+        if (metodoEntrega === 'delivery') {
+            direccion = document.getElementById('address')?.value?.trim() || (user?.direccion || '');
+        } else if (metodoEntrega === 'recojo') {
+            sucursal = document.getElementById('sucursalRecojo')?.value?.trim() || '';
+        }
 
-        // Validación según método de entrega
+        // Validación
         if (!nombre || !telefono ||
             (metodoEntrega === 'delivery' && !direccion) ||
             (metodoEntrega === 'recojo' && !sucursal)) {
-            Swal.fire({ icon: 'warning', title: 'Datos incompletos', text: 'Completa los campos obligatorios según el método de entrega' });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Datos incompletos',
+                text: metodoEntrega === 'recojo'
+                      ? 'Selecciona la sucursal para recojo'
+                      : 'Completa los campos obligatorios según el método de entrega'
+            });
             return;
         }
 
@@ -155,15 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pedido = {
             cliente: {
-                nombre,
-                telefono,
-                email,
-                direccion,
-                metodoEntrega,
-                sucursal,
-                notas
+                id: user?.id || null,
+                nombre, telefono, email, direccion, metodoEntrega, sucursal, notas
             },
-            productos: cartData.map(i => ({ id_producto: i.id, cantidad: i.quantity, precio: i.price, name: i.name })),
+            productos: cartData.map(i => ({
+                id_producto: i.id,
+                cantidad: i.quantity,
+                precio: i.price,
+                name: i.name
+            })),
             total
         };
 
@@ -191,11 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'success',
                     showCancelButton: true,
                     confirmButtonText: '🧾 Ver Boleta PDF',
-                    cancelButtonText: 'Cerrar',
+                    cancelButtonText: 'Cerrar'
                 }).then((r) => {
-                    if (r.isConfirmed && result.boletaURL) {
-                        window.open(result.boletaURL, '_blank');
-                    }
+                    if (r.isConfirmed && result.boletaURL) window.open(result.boletaURL, '_blank');
                 });
 
                 localStorage.removeItem('norkys_cart');
@@ -204,44 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 Swal.fire({ icon: 'error', title: 'Error en el pedido', text: result.error || 'Problema al procesar el pedido.' });
             }
-
         } catch (error) {
             console.error('Error en fetch:', error);
             Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'No se pudo conectar con el servidor.' });
         }
     });
 
-
     updateCartUI();
-    console.log('[cart.js] Carrito cargado y listo', cartData);
-
-    // 🧠 Mostrar/ocultar campos según método de entrega
-    const deliveryRadios = document.querySelectorAll('input[name="delivery-method"]');
-    const deliveryAddress = document.getElementById("delivery-address");
-    const sucursalGroup = document.getElementById("sucursalGroup");
-
-    const actualizarVistaEntrega = () => {
-      const seleccionado = document.querySelector('input[name="delivery-method"]:checked')?.value;
-
-      if (seleccionado === "delivery") {
-        deliveryAddress.style.display = "block";
-        sucursalGroup.style.display = "none";
-      } else if (seleccionado === "recojo") {
-        deliveryAddress.style.display = "none";
-        sucursalGroup.style.display = "block";
-      }
-    };
-
-    // Inicializa el estado al cargar la página
-    actualizarVistaEntrega();
-
-    // Escucha cambios en los radio buttons
-    deliveryRadios.forEach(radio => {
-      radio.addEventListener("change", actualizarVistaEntrega);
-    });
-
-    updateCartUI();
-    console.log('[cart.js] Carrito cargado y listo', cartData);
-
-
 });

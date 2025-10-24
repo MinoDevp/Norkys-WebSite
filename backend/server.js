@@ -50,38 +50,54 @@ app.get('/api/usuarios', async (req, res) => {
 app.post('/api/pedidos', async (req, res) => {
   const client = await pool.connect();
   try {
-    const { cliente, productos, total } = req.body;
-    const { nombre, telefono, email, direccion, metodoEntrega, sucursal, notas } = cliente;
+    let { cliente, productos, total } = req.body;
+    let { id: usuarioId, nombre, telefono, email, direccion, metodoEntrega, sucursal, notas } = cliente;
 
-    // Validación básica
+    // Datos de usuario logueado
+    if (usuarioId) {
+      const userRes = await client.query(
+        'SELECT nombre, telefono, email, direccion FROM usuarios WHERE id=$1',
+        [usuarioId]
+      );
+      if (userRes.rows.length > 0) {
+        const user = userRes.rows[0];
+        nombre = nombre || user.nombre;
+        telefono = telefono || user.telefono;
+        email = email || user.email;
+        if (metodoEntrega === 'delivery') direccion = direccion || user.direccion;
+      }
+    }
+
+    // Validación
     if (!nombre || !telefono || (metodoEntrega === 'delivery' && !direccion) || (metodoEntrega === 'recojo' && !sucursal)) {
       return res.status(400).json({ error: 'Faltan datos obligatorios según el método de entrega.' });
     }
 
-    // Elegir la dirección de entrega correcta
-    const direccionEntrega = metodoEntrega === 'delivery' ? direccion.trim() : sucursal.trim();
+    const direccionEntrega = metodoEntrega === 'delivery' ? direccion.trim() : '';
     const sucursalFinal = metodoEntrega === 'recojo' ? sucursal.trim() : null;
 
     await client.query('BEGIN');
 
-    // Insertar cliente
-    const clienteRes = await client.query(
-      `INSERT INTO usuarios (nombre, email, telefono, direccion)
-       VALUES ($1, $2, $3, $4) RETURNING id`,
-      [nombre, email || null, telefono, direccion || null]
-    );
-    const usuarioId = clienteRes.rows[0].id;
+    // Insertar usuario si no existe
+    if (!usuarioId) {
+      const clienteRes = await client.query(
+        `INSERT INTO usuarios (nombre, email, telefono, direccion)
+         VALUES ($1, $2, $3, $4) RETURNING id`,
+        [nombre, email || null, telefono, direccion || null]
+      );
+      usuarioId = clienteRes.rows[0].id;
+    }
 
     // Insertar pedido
     const pedidoRes = await client.query(
       `INSERT INTO pedidos
         (usuario_id, fecha, metodo_entrega, direccion_entrega, sucursal_recojo, notas, total, estado)
        VALUES ($1, NOW(), $2, $3, $4, $5, $6, 'Pendiente') RETURNING id`,
-      [usuarioId, metodoEntrega, direccionEntrega, sucursalFinal, notas || null, total]
+      [usuarioId, metodoEntrega, direccionEntrega || null, sucursalFinal, notas || null, total]
     );
     const pedidoId = pedidoRes.rows[0].id;
 
-    // Insertar productos
+    // Insertar detalle productos
     for (const p of productos) {
       if (!p.id_producto || !p.cantidad || !p.precio) continue;
       await client.query(
@@ -93,7 +109,7 @@ app.post('/api/pedidos', async (req, res) => {
 
     await client.query('COMMIT');
 
-    // ====== Generar boleta PDF ======
+    // ====== Generar boleta PDF con diseño completo ======
     const pdfPath = path.join(boletasDir, `boleta_${pedidoId}.pdf`);
     const doc = new PDFDocument({ margin: 50, size: 'A4' });
     doc.pipe(fs.createWriteStream(pdfPath));
@@ -116,7 +132,7 @@ app.post('/api/pedidos', async (req, res) => {
        .text(`Cliente: ${nombre}`)
        .text(`Teléfono: ${telefono}`)
        .text(`Método: ${metodoEntrega === 'recojo' ? 'Recojo en tienda' : 'Delivery'}`)
-       .text(`Dirección de entrega: ${direccionEntrega}`)
+       .text(`Dirección de entrega: ${direccionEntrega || sucursalFinal}`)
        .text(`Fecha: ${new Date().toLocaleString()}`);
     doc.moveDown(1.5);
 
@@ -163,6 +179,27 @@ app.post('/api/pedidos', async (req, res) => {
     res.status(500).json({ error: 'Error al procesar el pedido.' });
   } finally {
     client.release();
+  }
+});
+
+// Login
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      return res.status(400).json({ error: 'Email y contraseña son obligatorios.' });
+
+    const result = await pool.query('SELECT * FROM usuarios WHERE email=$1 AND password=$2', [email, password]);
+
+    if (result.rows.length === 0)
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+
+    const user = result.rows[0];
+    res.json({ message: 'Login exitoso.', user: { id: user.id, nombre: user.nombre, email: user.email } });
+  } catch (error) {
+    console.error('❌ Error al hacer login:', error);
+    res.status(500).json({ error: 'Error en el login.' });
   }
 });
 
