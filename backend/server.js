@@ -5,6 +5,7 @@ const pool = require('./db');
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
+const bcrypt = require('bcrypt');
 
 // ====== CONFIGURACIÓN ======
 const app = express();
@@ -43,6 +44,106 @@ app.get('/api/usuarios', async (req, res) => {
   } catch (error) {
     console.error('❌ Error al obtener usuarios:', error);
     res.status(500).json({ error: 'Error al obtener los usuarios' });
+  }
+});
+
+
+// === REGISTRO DE USUARIO CON VALIDACIONES COMPLETAS ===
+app.post('/api/register', async (req, res) => {
+  try {
+    const { nombre, email, telefono, direccion, password } = req.body;
+
+    // 1️⃣ Validaciones básicas
+    if (!nombre || !email || !telefono || !password) {
+      return res.status(400).json({ error: 'Todos los campos obligatorios deben completarse' });
+    }
+
+    // 2️⃣ Validaciones de formato
+    const nombreRegex = /^[A-Za-z0-9]{5,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const telefonoRegex = /^\d{9}$/;
+
+    if (!nombreRegex.test(nombre)) {
+      return res.status(400).json({ error: 'El nombre debe tener al menos 5 caracteres y solo letras o números.' });
+    }
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Correo electrónico no válido.' });
+    }
+    if (!telefonoRegex.test(telefono)) {
+      return res.status(400).json({ error: 'Número de teléfono inválido (solo números,de 9 dígitos).' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres.' });
+    }
+
+    // 3️⃣ Verificar si el nombre ya está registrado
+    const existName = await pool.query('SELECT 1 FROM usuarios WHERE nombre = $1', [nombre]);
+    if (existName.rows.length > 0) {
+      return res.status(400).json({ error: 'El nombre de usuario ya está en uso, elige otro.' });
+    }
+
+    // 4️⃣ Verificar si el email ya está registrado
+    const existEmail = await pool.query('SELECT 1 FROM usuarios WHERE email = $1', [email]);
+    if (existEmail.rows.length > 0) {
+      return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
+    }
+
+    // 5️⃣ Verificar si el teléfono ya está registrado
+    const existPhone = await pool.query('SELECT 1 FROM usuarios WHERE telefono = $1', [telefono]);
+    if (existPhone.rows.length > 0) {
+      return res.status(400).json({ error: 'El número de teléfono ya está registrado.' });
+    }
+
+    // 6️⃣ Hashear contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 7️⃣ Insertar usuario
+    await pool.query(
+      `INSERT INTO usuarios (nombre, email, telefono, direccion, password)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [nombre, email, telefono, direccion || null, hashedPassword]
+    );
+
+    // 8️⃣ Éxito
+    res.status(201).json({ message: 'Usuario registrado exitosamente' });
+
+  } catch (error) {
+    console.error('❌ Error en el registro:', error);
+    res.status(500).json({ error: 'Error interno del servidor. Intenta nuevamente más tarde.' });
+  }
+});
+
+
+
+
+// Login de usuario
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      return res.status(400).json({ error: 'Email y contraseña son obligatorios.' });
+
+    const result = await pool.query('SELECT * FROM usuarios WHERE email=$1', [email]);
+
+    if (result.rows.length === 0)
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+
+    const user = result.rows[0];
+
+    // Comparar password con hash
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+
+    res.json({
+      message: 'Login exitoso.',
+      user: { id: user.id, nombre: user.nombre, email: user.email, telefono: user.telefono, direccion: user.direccion }
+    });
+
+  } catch (error) {
+    console.error('❌ Error al hacer login:', error);
+    res.status(500).json({ error: 'Error en el login.' });
   }
 });
 
@@ -109,7 +210,7 @@ app.post('/api/pedidos', async (req, res) => {
 
     await client.query('COMMIT');
 
-    // ====== Generar boleta PDF con diseño completo ======
+    // ====== Generar boleta PDF ======
     const pdfPath = path.join(boletasDir, `boleta_${pedidoId}.pdf`);
     const doc = new PDFDocument({ margin: 50, size: 'A4' });
     doc.pipe(fs.createWriteStream(pdfPath));
@@ -179,27 +280,6 @@ app.post('/api/pedidos', async (req, res) => {
     res.status(500).json({ error: 'Error al procesar el pedido.' });
   } finally {
     client.release();
-  }
-});
-
-// Login
-app.post('/api/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password)
-      return res.status(400).json({ error: 'Email y contraseña son obligatorios.' });
-
-    const result = await pool.query('SELECT * FROM usuarios WHERE email=$1 AND password=$2', [email, password]);
-
-    if (result.rows.length === 0)
-      return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
-
-    const user = result.rows[0];
-    res.json({ message: 'Login exitoso.', user: { id: user.id, nombre: user.nombre, email: user.email } });
-  } catch (error) {
-    console.error('❌ Error al hacer login:', error);
-    res.status(500).json({ error: 'Error en el login.' });
   }
 });
 
