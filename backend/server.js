@@ -282,6 +282,41 @@ app.post('/api/pedidos', async (req, res) => {
     client.release();
   }
 });
+// ====== ENVIAR MENSAJE DE CONTACTO ======
+app.post('/api/contacto', async (req, res) => {
+  try {
+    const { nombre, email, telefono, asunto, mensaje } = req.body;
+
+    // Validación de campos obligatorios
+    if (!nombre || !email || !asunto || !mensaje) {
+      return res.status(400).json({ error: 'Por favor, complete todos los campos obligatorios.' });
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Correo electrónico inválido.' });
+    }
+
+    // Insertar en la tabla contacto y retornar id
+    const result = await pool.query(
+      `INSERT INTO contacto (nombre, email, telefono, asunto, mensaje, fecha)
+       VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING id`,
+      [nombre, email, telefono || null, asunto, mensaje]
+    );
+
+    res.status(201).json({
+      message: 'Mensaje enviado correctamente. Gracias por contactarnos.',
+      contactoId: result.rows[0].id
+    });
+
+  } catch (error) {
+    console.error('❌ Error al enviar mensaje de contacto:', error);
+    res.status(500).json({ error: 'Error interno del servidor. Intente nuevamente más tarde.' });
+  }
+});
+
+
 
 // ====== INICIAR SERVIDOR ======
 app.listen(PORT, () => {

@@ -56,7 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initGlobal3D(container) {
-    container.style.height = container.style.height || '400px';
+    function setContainerHeight() {
+        let height = 400; // default desktop
+
+        if (window.innerWidth <= 480) {      // móviles pequeños (~6")
+            height = 220;
+        } else if (window.innerWidth <= 768) { // tablets y móviles grandes
+            height = 300;
+        }
+
+        container.style.height = height + 'px';
+    }
+
+    setContainerHeight(); // inicial
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -79,7 +91,19 @@ function initGlobal3D(container) {
     const loader = new THREE.GLTFLoader();
     loader.load('/models/pollobrasa.glb', (gltf) => {
         const model = gltf.scene;
-        model.scale.set(2, 2, 2);
+
+        // Ajuste de escala según dispositivo
+        function setModelScale() {
+            let scale = 2; // desktop
+            if (window.innerWidth <= 480) {    // móvil
+                scale = 1.2;                    // escala más pequeña
+            } else if (window.innerWidth <= 768) { // tablet
+                scale = 1.5;                    // un poco más grande que móvil
+            }
+            model.scale.set(scale, scale, scale);
+        }
+
+        setModelScale();
         scene.add(model);
 
         function animate() {
@@ -88,11 +112,16 @@ function initGlobal3D(container) {
             renderer.render(scene, camera);
         }
         animate();
-    }, undefined, (error) => console.error('Error cargando GLB:', error));
 
-    window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    });
+        // Ajuste de escala al redimensionar pantalla
+        window.addEventListener('resize', () => {
+            setContainerHeight();
+            setModelScale();
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    }, undefined, (error) => console.error('Error cargando GLB:', error));
 }
+
+

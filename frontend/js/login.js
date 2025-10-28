@@ -1,5 +1,3 @@
-// login.js
-
 // Manejo del formulario
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -34,11 +32,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 });
 
 // -------------------------------
-// Inicialización 3D del login
+// Inicialización 3D del login (solo escritorio)
 // -------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('login3d');
-    if (!container) return;
+    if (!container || window.innerWidth <= 768) return; // 3D solo escritorio
 
     initLogin3D(container);
 });
@@ -66,15 +64,19 @@ function initLogin3D(container) {
     const loader = new THREE.GLTFLoader();
     loader.load('/models/french_fries.glb', (gltf) => {
         const model = gltf.scene;
+
+        // Escala ajustable
         model.scale.set(0.2, 0.2, 0.2);
         model.position.y = -0.5;
         scene.add(model);
 
+        // Animación al hacer click
         container.addEventListener('click', () => {
             const duration = 200;
             const initialY = model.position.y;
             const jumpHeight = 0.5;
             let start = null;
+
             function animateJump(timestamp) {
                 if (!start) start = timestamp;
                 const progress = timestamp - start;
@@ -88,6 +90,7 @@ function initLogin3D(container) {
             requestAnimationFrame(animateJump);
         });
 
+        // Animación rotación continua
         function animate() {
             requestAnimationFrame(animate);
             model.rotation.y += 0.01;
@@ -96,7 +99,13 @@ function initLogin3D(container) {
         animate();
     }, undefined, (error) => console.error('Error cargando GLB:', error));
 
+    // Ajuste al redimensionar
     window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            container.style.display = 'none';
+            return;
+        }
+        container.style.display = 'block';
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);

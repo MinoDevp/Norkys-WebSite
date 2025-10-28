@@ -1,84 +1,147 @@
-/* Responsive */
-@media (max-width: 768px) {
+/* === Responsive Index - versión antigua segura === */
+
+/* Tablets (<=1024px) */
+@media (max-width: 1024px) {
+    /* Header */
     .header-content {
         flex-direction: column;
         text-align: center;
     }
-    
     .logo {
         margin-bottom: 15px;
     }
-
     nav ul {
         justify-content: center;
         flex-wrap: wrap;
     }
-    
     nav ul li {
         margin: 5px;
     }
-    
-    .about-content, .contact-content {
+
+    /* Hero 3D */
+    .hero-flex {
         flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 100%;
     }
-    
-    .about-text {
-        padding-right: 0;
-        margin-bottom: 30px;
+    .hero-text, .hero-3d {
+        flex: 1 1 100%;
+        width: 100%;
+        text-align: center;
     }
-    
-    .hero h2 {
-        font-size: 2rem;
+    .hero-3d {
+        height: 400px; /* altura grande para tablet */
+        max-width: 100%;
+        overflow: hidden;
     }
-    
-    .hero p {
-        font-size: 1rem;
+
+    /* About */
+    .about-content {
+        flex-direction: column;
+        text-align: center;
     }
-    
-    .section-title h2 {
-        font-size: 1.8rem;
+    .about-text, .about-image {
+        padding: 10px 0;
     }
-    
+
+    /* Promociones */
+    .promotions-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    /* Menú categorías */
     .menu-categories {
         flex-direction: column;
         align-items: center;
     }
-    
     .category-btn {
         width: 200px;
         margin-bottom: 10px;
     }
 }
 
+/* Móviles (<=768px) */
+@media (max-width: 768px) {
+    /* Header */
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .logo {
+        margin-bottom: 15px;
+    }
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    nav ul li {
+        margin: 5px;
+    }
+
+    /* Hero 3D */
+    .hero-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        max-width: 100%;
+    }
+    .hero-text {
+        width: 100%;
+        text-align: center;
+    }
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+    .hero-text p {
+        font-size: 1rem;
+    }
+    .hero-3d {
+        width: 100%;
+        height: 400px;  /* mantiene tamaño grande, aunque móvil */
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    /* Promociones */
+    .promotions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* About */
+    .about-image {
+        height: 300px;
+    }
+
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+    }
+
+    /* Botones y login */
+    .btn, .login-link {
+        width: 100%;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Móviles muy pequeños (<=480px) */
 @media (max-width: 480px) {
     .logo h1 {
         font-size: 1.5rem;
     }
-    
     .hero {
         padding: 60px 20px;
     }
-    
     .hero h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
-    
-    .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+    .section-title h2 {
+        font-size: 1.5rem;
     }
-    
-    .specialties-grid,
-    .menu-grid,
-    .locations-grid {
-        grid-template-columns: 1fr;
+    .menu-categories {
+        gap: 5px;
     }
-    
-    .footer-content {
-        flex-direction: column;
-    }
-}
-.login-link {
-    padding: 6px 12px;   /* Hace que el botón sea más pequeño en móviles */
-    font-size: 0.9rem;   /* Reduce el tamaño del texto para que quepa mejor */
 }

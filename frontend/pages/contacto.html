@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Norky's - Contacto</title>
+
+    <!-- CSS principal -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/contacto.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Leaflet CSS para el mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
 <body>
 <!-- Header dinámico -->
@@ -21,6 +26,7 @@
         </div>
 
         <div class="contact-container">
+            <!-- Información de contacto -->
             <div class="contact-info">
                 <h2>Información de Contacto</h2>
 
@@ -77,6 +83,7 @@
                 </div>
             </div>
 
+            <!-- Formulario de contacto -->
             <div class="contact-form">
                 <h2>Envíanos un mensaje</h2>
                 <form id="contactForm">
@@ -118,18 +125,13 @@
             </div>
         </div>
 
+        <!-- Mapa Futurista Oscuro -->
         <div class="contact-map">
             <h2>Encuéntranos fácilmente</h2>
-            <div class="map-container">
-                <!-- Aquí iría un mapa real con Google Maps o similar -->
-                <div style="padding: 20px; text-align: center;">
-                    <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 15px; color: #4CAF50;"></i>
-                    <p>Mapa interactivo de nuestras ubicaciones</p>
-                    <p><small>Integración con Google Maps</small></p>
-                </div>
-            </div>
+            <div id="map" class="map-container" style="height: 400px; border-radius: 10px;"></div>
         </div>
 
+        <!-- FAQ -->
         <div class="faq-section">
             <h2>Preguntas Frecuentes</h2>
 
@@ -139,9 +141,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>Sí, realizamos delivery a domicilio en todas nuestras zonas de cobertura. El tiempo de entrega
-                        aproximado es de 30-45 minutos dependiendo de la ubicación. El costo de delivery varía según la
-                        distancia.</p>
+                    <p>Sí, realizamos delivery a domicilio en todas nuestras zonas de cobertura. Tiempo de entrega: 30-45 min.</p>
                 </div>
             </div>
 
@@ -151,8 +151,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>Sí, aceptamos todas las tarjetas de crédito y débito principales (Visa, MasterCard, American
-                        Express). También aceptamos pagos en efectivo y transferencias bancarias.</p>
+                    <p>Aceptamos todas las tarjetas principales y pagos en efectivo o transferencia bancaria.</p>
                 </div>
             </div>
 
@@ -162,19 +161,17 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>Para grupos de 8 o más personas, recomendamos hacer una reserva con al menos 24 horas de
-                        anticipación para garantizar la disponibilidad de espacio y agilizar su servicio.</p>
+                    <p>Para grupos de 8 o más personas, se recomienda reservar con al menos 24 horas de anticipación.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>¿Tienen opciones para vegetarianos?</span>
+                    <span>¿Tienen opciones vegetarianas?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>Sí, contamos con varias opciones vegetarianas en nuestro menú, incluyendo ensaladas frescas,
-                        papas fritas, pastas y platos especiales sin carne. Consulte nuestro menú para más detalles.</p>
+                    <p>Contamos con opciones vegetarianas: ensaladas, papas, pastas y platos especiales sin carne.</p>
                 </div>
             </div>
         </div>
@@ -183,10 +180,14 @@
 
 <!-- Footer dinámico -->
 <footer id="footer"></footer>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../js/components.js"></script>
 <script src="../js/script.js"></script>
 <script src="../js/contacto.js"></script>
 <script src="https://kit.fontawesome.com/b8ec8c67c3.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 </body>
 </html>
